@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package io.github.tigernitw.http.model;
+package org.clojars.tigernitw.http.executor;
 
-import lombok.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import java.util.function.Function;
+import org.clojars.tigernitw.http.model.ExtractedResponse;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class HttpHeader extends KeyValuePair {
+public interface HttpExecutor {
 
-    @Builder
-    public HttpHeader(String name, String value) {
-        super(name, value);
-    }
+  <T> T execute(Class<T> responseType, Function<ExtractedResponse, T> nonSuccessResponseConsumer)
+      throws Exception;
+
+  <T> T execute(
+      TypeReference<T> typeReference, Function<ExtractedResponse, T> nonSuccessResponseConsumer)
+      throws Exception;
 }

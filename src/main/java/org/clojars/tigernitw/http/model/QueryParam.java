@@ -14,22 +14,16 @@
  * limitations under the License.
  */
 
-package io.github.tigernitw.http.model;
+package org.clojars.tigernitw.http.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.apache.http.entity.ContentType;
+import lombok.*;
 
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class HttpRequestData {
+@EqualsAndHashCode(callSuper = true)
+public class QueryParam extends KeyValuePair {
 
-    private Object data;
-
-    private ContentType contentType;
-
+  @Builder
+  public QueryParam(String name, String value) {
+    super(name, value);
+  }
 }

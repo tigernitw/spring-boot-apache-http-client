@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package io.github.tigernitw.http.executor;
+package org.clojars.tigernitw.http.model;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import lombok.*;
 
-public interface HttpExecutor {
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class HttpHeader extends KeyValuePair {
 
-    <T> T execute(Class<T> responseType) throws Exception;
-
-    <T> T execute(TypeReference<T> typeReference) throws Exception;
-
+  @Builder
+  public HttpHeader(String name, String value) {
+    super(name, value);
+  }
 }

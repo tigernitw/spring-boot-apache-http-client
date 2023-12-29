@@ -1,2 +1,2 @@
 # Auto Configure
-io.github.tigernitw.http.config.HttpClientConfiguration
+org.clojars.tigernitw.http.config.HttpClientConfiguration

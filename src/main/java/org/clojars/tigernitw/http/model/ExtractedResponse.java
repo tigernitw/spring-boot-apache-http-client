@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-package io.github.tigernitw.http.util;
+package org.clojars.tigernitw.http.model;
 
-import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Collection;
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ExtractedResponse {
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CollectionUtils {
+  private int code;
 
-    public static boolean isNullOrEmpty(final Collection<?> c) {
-        return c == null || c.isEmpty();
-    }
-
+  private byte[] body;
 }

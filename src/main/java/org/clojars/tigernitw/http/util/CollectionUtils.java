@@ -14,17 +14,24 @@
  * limitations under the License.
  */
 
-package io.github.tigernitw.http.model;
+package org.clojars.tigernitw.http.util;
 
-import lombok.*;
+import java.util.Collection;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class QueryParam extends KeyValuePair {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class CollectionUtils {
 
-    @Builder
-    public QueryParam(String name, String value) {
-        super(name, value);
-    }
+  public static boolean isNullOrEmpty(final Collection<?> c) {
+    return c == null || c.isEmpty();
+  }
 
+  public static boolean isNullOrEmpty(byte[] bytes) {
+    return bytes == null || bytes.length == 0;
+  }
+
+  public static String convertByteArrayToString(byte[] bytes) {
+    return isNullOrEmpty(bytes) ? null : new String(bytes);
+  }
 }

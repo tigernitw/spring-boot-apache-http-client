@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.tigernitw.http.config;
+package org.clojars.tigernitw.http.config;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -23,42 +23,43 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
-/**
- * {@link io.github.tigernitw.http.config.HttpClientConfiguration}  Configuration class for HTTP client
- * comes up.
- */
-
+/** {@link HttpClientConfiguration} Configuration class for HTTP client comes up. */
 @Data
 @Validated
 public class HttpClientConfiguration {
 
-    @Valid
-    private Endpoint endpoint;
+  @Valid private HttpClientConfiguration.EndpointConfig endpoint;
 
-    @Min(10)
-    @Max(1024)
-    private int connections = 10;
+  @Valid private TracingConfig tracingConfig;
 
-    @Max(86400)
-    private int idleTimeOutSeconds = 30;
+  @Min(10)
+  @Max(1024)
+  private int connections = 10;
 
-    @Max(86400000)
-    private int connectTimeoutMs = 10000;
+  @Max(86400)
+  private int idleTimeOutSeconds = 30;
 
-    @Max(86400000)
-    private int opTimeoutMs = 10000;
+  @Max(86400000)
+  private int connectTimeoutMs = 10000;
 
+  @Max(86400000)
+  private int opTimeoutMs = 10000;
 
-    @Data
-    public static class Endpoint {
+  @Data
+  @Validated
+  public static class EndpointConfig {
 
-        @NotBlank
-        private String host;
+    @NotBlank private String host;
 
-        private int port;
+    private int port;
 
-        private boolean secure;
+    private boolean secure;
+  }
 
-    }
+  @Data
+  @Validated
+  public static class TracingConfig {
 
+    private String requestIdHeader = "x-request-id";
+  }
 }

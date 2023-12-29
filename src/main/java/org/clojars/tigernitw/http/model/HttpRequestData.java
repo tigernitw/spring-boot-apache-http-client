@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package io.github.tigernitw.http.model;
+package org.clojars.tigernitw.http.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.http.entity.ContentType;
 
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
-public abstract class KeyValuePair {
+public class HttpRequestData {
 
-    private String name;
+  private Object data;
 
-    private String value;
-
-    protected KeyValuePair(String name, String value) {
-        this.name = name;
-        this.value = value;
-    }
+  private ContentType contentType;
 }
