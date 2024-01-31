@@ -17,15 +17,14 @@
 package org.clojars.tigernitw.http.executor;
 
 import static org.clojars.tigernitw.http.model.Constant.Monitoring.X_REQUEST_ID;
+import static org.clojars.tigernitw.http.model.Constant.RequestHeaders.REMOVABLE_HEADERS;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +52,7 @@ public abstract class BaseHttpExecutor implements HttpExecutor {
   protected HttpClientConfiguration.EndpointConfig endpoint;
   protected HttpClientConfiguration.TracingConfig tracingConfig;
   protected String path;
-  protected List<HttpHeader> httpHeaders;
+  protected Set<HttpHeader> httpHeaders;
   protected List<QueryParam> queryParams;
   protected ObjectMapper objectMapper;
 
@@ -63,7 +62,7 @@ public abstract class BaseHttpExecutor implements HttpExecutor {
       HttpClientConfiguration.EndpointConfig endpoint,
       HttpClientConfiguration.TracingConfig tracingConfig,
       String path,
-      List<HttpHeader> httpHeaders,
+      Set<HttpHeader> httpHeaders,
       List<QueryParam> queryParams,
       ObjectMapper objectMapper) {
     this.httpAppConfiguration = httpAppConfiguration;
@@ -79,12 +78,16 @@ public abstract class BaseHttpExecutor implements HttpExecutor {
   public abstract HttpUriRequest getRequest(URI uri) throws JsonProcessingException;
 
   protected Header[] addHeaders() {
-    List<Header> headers =
+    Set<Header> headers =
         Objects.nonNull(httpHeaders)
             ? httpHeaders.stream()
+                .filter(
+                    httpHeader ->
+                        !CollectionUtils.containsElement(
+                            httpHeader.getName().toLowerCase(), REMOVABLE_HEADERS))
                 .map(httpHeader -> new BasicHeader(httpHeader.getName(), httpHeader.getValue()))
-                .collect(Collectors.toList())
-            : new ArrayList<>();
+                .collect(Collectors.toSet())
+            : new HashSet<>();
     headers.add(new BasicHeader(X_REQUEST_ID, MDC.get(httpAppConfiguration.getRequestIdHeader())));
     if (Objects.nonNull(tracingConfig)
         && StringUtils.hasLength(tracingConfig.getRequestIdHeader())) {

@@ -2,6 +2,7 @@ package org.clojars.tigernitw.http.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +22,7 @@ public class HttpRequest {
   private HttpClientConfiguration.EndpointConfig endpoint;
   private String path;
   private HttpMethod httpMethod;
-  private List<HttpHeader> httpHeaders;
+  private Set<HttpHeader> httpHeaders;
   private List<QueryParam> queryParams;
   private HttpRequestData httpRequestData;
   private ObjectMapper objectMapper;

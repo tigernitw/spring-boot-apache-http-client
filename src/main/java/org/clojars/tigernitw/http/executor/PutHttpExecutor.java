@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import lombok.Builder;
 import org.apache.http.Header;
 import org.apache.http.client.methods.HttpPut;
@@ -45,7 +46,7 @@ public class PutHttpExecutor extends BaseHttpExecutor {
       HttpClientConfiguration.TracingConfig tracingConfig,
       String path,
       HttpRequestData httpRequestData,
-      List<HttpHeader> httpHeaders,
+      Set<HttpHeader> httpHeaders,
       List<QueryParam> queryParams,
       ObjectMapper objectMapper) {
     super(

@@ -34,4 +34,8 @@ public class CollectionUtils {
   public static String convertByteArrayToString(byte[] bytes) {
     return isNullOrEmpty(bytes) ? null : new String(bytes);
   }
+
+  public static <T> boolean containsElement(T element, Collection<T> collection) {
+    return collection.contains(element);
+  }
 }

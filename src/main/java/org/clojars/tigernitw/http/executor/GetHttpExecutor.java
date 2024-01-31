@@ -20,6 +20,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 import lombok.Builder;
 import org.apache.http.Header;
 import org.apache.http.client.methods.HttpGet;
@@ -40,7 +41,7 @@ public class GetHttpExecutor extends BaseHttpExecutor {
       HttpClientConfiguration.TracingConfig tracingConfig,
       String path,
       List<QueryParam> queryParams,
-      List<HttpHeader> httpHeaders,
+      Set<HttpHeader> httpHeaders,
       ObjectMapper objectMapper) {
     super(
         httpAppConfiguration,
